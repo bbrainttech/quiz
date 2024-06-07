@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import { FlatList, ListRenderItem, View } from "react-native";
+import Animated, { ZoomInDown } from "react-native-reanimated";
 export default () => {
   const { language } = useLocalSearchParams();
 
@@ -30,12 +31,19 @@ export default () => {
 
   const renderItem: ListRenderItem<TQuestion> = ({ item, index }) => {
     return (
-      <QuestionItem
-        key={index.toString()}
-        {...item}
-        i={index}
-        language={_language}
-      />
+      <Animated.View
+        entering={ZoomInDown.duration(500)
+          .delay(index * 100)
+          .springify()
+          .mass(0.5)}
+      >
+        <QuestionItem
+          key={index.toString()}
+          {...item}
+          i={index}
+          language={_language}
+        />
+      </Animated.View>
     );
   };
   return (

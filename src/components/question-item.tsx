@@ -6,8 +6,7 @@ import {
   TOption,
   TQuestion,
 } from "@/utils/constants";
-import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   GestureResponderEvent,
@@ -15,10 +14,12 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
   View,
+  ViewProps,
 } from "react-native";
+import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 
 type QuestionItemProps = TQuestion &
-  TouchableOpacityProps & { i: number; language: TAcceptedLanguage };
+  ViewProps & { i: number; language: TAcceptedLanguage };
 
 export default ({
   language,
@@ -38,25 +39,43 @@ export default ({
     selectedOption: TOption<TAnswers>["label"];
   }
 
+  const [showPlus, setShowPlus] = useState(false);
+
   const { addQuestion } = useQuestions();
   const handlePress = ({ e, selectedOption }: TOnPress) => {
     console.log(`Selected : ${selectedOption} ----- Answer : ${answer}`);
     addQuestion({ answer, language, options, question, tense });
     haptics.selection();
-    props.onPress?.(e);
+    if (selectedOption === answer) setShowPlus(true);
   };
+
+  const [showSate, setShowState] = useState(hasSelectAnswer);
+  useEffect(() => {
+    setShowState(hasSelectAnswer);
+    if (hasSelectAnswer) {
+      const timeout = setTimeout(() => setShowState(false), 7500);
+      return () => clearTimeout(timeout);
+    }
+  }, [hasSelectAnswer]);
   const numbering = i + 1;
-  return (
-    <TouchableOpacity
-      disabled={hasSelectAnswer}
-      onPress={() => router.navigate(`/questions/${i}?language=${language}`)}
-      {...props}
+
+  const PopUpItem = ({ item = "🥰" }: { item?: string }) => (
+    <Animated.View
+      className="absolute z-50 items-center justify-center p-1 bg-white rounded-full shadow-lg h-14 w-14"
+      entering={FadeInDown.duration(2000).springify().mass(0.3)}
+      exiting={FadeOutDown.duration(2000).springify().mass(0.3)}
     >
+      <Text className="text-4xl font-semibold text-center ">{item}</Text>
+    </Animated.View>
+  );
+  return (
+    <View {...props}>
+      {showSate && (showPlus ? <PopUpItem /> : <PopUpItem item="😪" />)}
       <View className="flex-row gap-x-2">
         <Text className="text-lg font-bold dark:text-background">
           {numbering}&#41;
         </Text>
-        <Text className="text-lg font-semibold dark:text-background">
+        <Text className="max-w-[85%] pr-3 text-lg font-semibold dark:text-background">
           {createQuestion(question, tense)}
         </Text>
       </View>
@@ -79,47 +98,41 @@ export default ({
             disabled={hasSelectAnswer}
             className={cn(
               hasSelectAnswer &&
-                (item.label === answer ? "bg-green-600" : "bg-red-600")
+                (item.label === answer
+                  ? "bg-green-600 border-green-600"
+                  : "border-red-600")
             )}
+            state={
+              hasSelectAnswer &&
+              (item.label === answer ? "text-white font-bold" : "text-red-500")
+            }
           />
         )}
       />
-    </TouchableOpacity>
+    </View>
   );
 };
 
 type AnswerItemProps = TOption<TAnswers> &
-  TouchableOpacityProps & { answer: TAnswers };
+  TouchableOpacityProps & { answer: TAnswers; state: string | boolean };
 const AnswerItem = ({
   label,
   option,
   answer,
+  state,
   className,
   ...props
 }: AnswerItemProps) => {
   return (
     <TouchableOpacity
       className={cn(
-        "flex-row items-center w-1/2 p-2 disabled:opacity-25 rounded shadow bg-background dark:bg-muted-dark shadow-[#0001]  dark:shadow-none gap-x-2",
+        "flex-row items-center border border-transparent w-1/2 p-2 disabled:opacity-25 rounded shadow bg-background dark:bg-[#151515] shadow-[#0001]  dark:shadow-none gap-x-2",
         className
-        // label === answer ?"bg-green-600":"bg-red-600"
       )}
       {...props}
     >
-      <Text
-        className={cn(
-          "text-base font-bold"
-          //  isCorrect && "text-background"
-        )}
-      >
-        {label}&#41;
-      </Text>
-      <Text
-        className={cn(
-          "text-base dark:text-background"
-          // isCorrect && "text-background"
-        )}
-      >
+      <Text className={cn("text-base font-bold dark:text-white", state)}>{label}&#41;</Text>
+      <Text className={cn("text-base dark:text-background", state)}>
         {option}
       </Text>
     </TouchableOpacity>
@@ -133,8 +146,8 @@ const AnswerItem = ({
  * @returns Formates question with tence
  */
 const createQuestion = (question: string, tense?: string) => {
-  if (!(tense || question.includes("__TENCE__"))) return question;
-  const newQuestion = question.replace(/__TENCE__/g, ` ____ (${tense})`);
+  if (!(tense || question.includes("__TENSE__"))) return question;
+  const newQuestion = question.replace(/__TENSE__/g, ` ____ (${tense})`);
 
   return newQuestion;
 };

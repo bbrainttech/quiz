@@ -14,7 +14,7 @@ export default ({ txt, children, ...props }: BtnProps) => {
     <TouchableOpacity
       activeOpacity={0.5}
       className={cn(
-        "inline-flex h-14 px-4 py-2 flex-row items-center overflow-hidden relative bg-primary justify-center rounded-xl",
+        "inline-flex h-14 px-4 active:scale-95 transition-all duration-500 py-2 flex-row items-center overflow-hidden relative bg-primary justify-center rounded-xl",
         props.disabled && "opacity-50"
       )}
       {...props}

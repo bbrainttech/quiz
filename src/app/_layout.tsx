@@ -1,6 +1,6 @@
 import { Btn } from "@/components";
 import { QuestionsProvider } from "@/components/providers";
-import { useStore } from "@/hooks";
+import useBackgroundAudio from "@/hooks/use-background-audio";
 import Icon from "@expo/vector-icons/Ionicons";
 import { router, Stack } from "expo-router";
 import { useEffect } from "react";
@@ -10,7 +10,18 @@ import { BlurEffectTypes } from "react-native-screens";
 export default function RootLayout() {
   const theme = useColorScheme();
 
-  
+  const { isPlaying, playAudio } = useBackgroundAudio();
+  useEffect(() => {
+    (async () => {
+      await playAudio()
+        .then(() => {
+          console.log("Playing...");
+        })
+        .catch(() => {
+          console.log("Error...");
+        });
+    })();
+  }, []);
   const TimeDown = () => {
     return (
       <View>
@@ -18,6 +29,7 @@ export default function RootLayout() {
       </View>
     );
   };
+
   return (
     <QuestionsProvider>
       <Stack>
@@ -28,6 +40,39 @@ export default function RootLayout() {
             headerTitle: "",
           }}
         />
+        <Stack.Screen
+          name="add-user"
+          options={{
+            headerTransparent: true,
+            headerTitle: "",
+            headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="home"
+          options={{
+            headerTitle: "Quiz",
+            headerSearchBarOptions: {
+              placeholder: "Search for a topic to learn",
+            },
+            headerBackVisible: false,
+            headerLargeTitle: true,
+            headerTransparent: true,
+            headerShadowVisible: false,
+            presentation:"modal",
+            headerBlurEffect: theme as BlurEffectTypes,
+            headerTitleStyle: {
+              color: theme === "dark" ? "white" : "black",
+            },
+            headerLargeTitleStyle: {
+              color: theme === "dark" ? "white" : "black",
+            },
+            headerLargeStyle: {
+              backgroundColor: theme === "dark" ? "black" : "white",
+            },
+          }}
+        />
+
         <Stack.Screen
           name="learn"
           options={{
@@ -72,26 +117,6 @@ export default function RootLayout() {
               backgroundColor: theme === "dark" ? "black" : "white",
             },
             headerRight: () => <TimeDown />,
-          }}
-        />
-        <Stack.Screen
-          name="questions/[id]"
-          options={{
-            presentation: "modal",
-            headerShadowVisible: false,
-            headerTransparent: true,
-            headerBlurEffect: theme as BlurEffectTypes,
-            headerTitleStyle: {
-              color: theme === "dark" ? "white" : "black",
-            },
-            headerRight: () => (
-              <Btn
-                onPress={() => router.back()}
-                className="px-1 py-1 rounded-full h-7 width-7 bg-black/5"
-              >
-                <Icon name="close-outline" size={20} />
-              </Btn>
-            ),
           }}
         />
       </Stack>
