@@ -1,4 +1,4 @@
-import { img_animal } from "@/assets/images";
+import { img_Deer, img_animal, img_bear, img_crocodile, img_deer, img_dog, img_ellephant, img_fish, img_fowl, img_giraffe, img_goat, img_gorilla, img_lion, img_rabbit, img_rhinoceros, img_tiger, img_tortle } from "@/assets/images";
 import { DefaultTheme } from "@react-navigation/native";
 import { ImageSource } from "expo-image";
 
@@ -33,7 +33,7 @@ export const QUESTIONS = {
       options: [
         {
           label: "A",
-          option: "write",
+          option: "writes",
         },
         {
           label: "B",
@@ -41,7 +41,7 @@ export const QUESTIONS = {
         },
         {
           label: "C",
-          option: "wrote",
+          option: "written",
         },
         {
           label: "D",
@@ -790,27 +790,27 @@ export const QUESTIONS = {
       answer: "A",
     },
     {
-      question: "J'__TENSE__le bus tous les jours.",
-      tense: "prendre",
+      question: "Comment conjugue-t-on le verbe__TENSE__ à la troisième personne du pluriel au présent ?",
+      tense: "écrire",
       options: [
         {
           label: "A",
-          option: "ai pris",
+          option: "écris",
         },
         {
           label: "B",
-          option: "prenais",
+          option: "écrit",
         },
         {
           label: "C",
-          option: "avais pris",
+          option: "écrivons",
         },
         {
           label: "D",
-          option: "prends",
+          option: "écrivent",
         },
       ],
-      answer: "B",
+      answer: "D",
     },
     {
       question: "Ils__TENSE__au cinéma la semaine dernière.",
@@ -1181,24 +1181,24 @@ export const QUESTIONS = {
       answer: "C",
     },
     {
-      question: " __TENSE__le courage de te défendre",
-      tense: "avoir",
+      question: " Comment conjugue-t-on le verbe __TENSE__ à la première personne du singulier au présent ?",
+      tense: "pouvoir",
       options: [
         {
           label: "A",
-          option: "Aie",
+          option: "peux",
         },
         {
           label: "B",
-          option: "Aies",
+          option: "peut",
         },
         {
           label: "C",
-          option: "Ai",
+          option: "pouvons",
         },
         {
           label: "D",
-          option: "Ait",
+          option: "pouvez",
         },
       ],
       answer: "A",
@@ -1250,24 +1250,24 @@ export const QUESTIONS = {
       answer: "C",
     },
     {
-      question: "Je __TENSE__ de rage.",
-      tense: "bouter",
+      question: "Comment conjugue-t-on le verbe__TENSE__ à la première personne du pluriel au présent ?",
+      tense: "aller",
       options: [
         {
           label: "A",
-          option: "boue",
+          option: "vais",
         },
         {
           label: "B",
-          option: "bous",
+          option: "allons",
         },
         {
           label: "C",
-          option: "bouille",
+          option: "allez",
         },
         {
           label: "D",
-          option: "bouts",
+          option: "vont",
         },
       ],
       answer: "B",
@@ -1365,6 +1365,52 @@ export const QUESTIONS = {
       ],
       answer: "B",
     },
+    {
+      question: " __TENSE__ le courage de te défendre !",
+      tense: "avoir",
+      options: [
+        {
+          label: "A",
+          option: "Aie",
+        },
+        {
+          label: "B",
+          option: "Aies",
+        },
+        {
+          label: "C",
+          option: "Ai",
+        },
+        {
+          label: "D",
+          option: "Ait",
+        },
+      ],
+      answer: "A",
+    },
+    {
+      question: " Je __TENSE__ de rage.",
+      tense: "boullir",
+      options: [
+        {
+          label: "A",
+          option: "boue",
+        },
+        {
+          label: "B",
+          option: "bous",
+        },
+        {
+          label: "C",
+          option: "bouille",
+        },
+        {
+          label: "D",
+          option: "bouts",
+        },
+      ],
+      answer: "B",
+    },
   ],
 } satisfies TQuestions;
 
@@ -1374,7 +1420,7 @@ type TAnimalQuestions = Omit<TQuestion, "tense"> & {
 export const ANIMAL_QUESTIONS = [
   {
     id: "0",
-    image: img_animal,
+    image: img_dog,
     question: "Please select the correct name of the animal in the picture.",
     options: [
       {
@@ -1398,7 +1444,31 @@ export const ANIMAL_QUESTIONS = [
   },
   {
     id: "1",
-    image: img_animal,
+    image: img_goat,
+    question: "What is the name of the animal in the picture?",
+    options: [
+      {
+        label: "A",
+        option: "Dog",
+      },
+      {
+        label: "B",
+        option: "Goat",
+      },
+      {
+        label: "C",
+        option: "Cat",
+      },
+      {
+        label: "D",
+        option: "Fox",
+      },
+    ],
+    answer: "B",
+  },
+  {
+    id: "2",
+    image: img_lion,
     question: "Please select the correct name of the animal in the picture.",
     options: [
       {
@@ -1415,7 +1485,295 @@ export const ANIMAL_QUESTIONS = [
       },
       {
         label: "D",
-        option: "Fox",
+        option: "Lion",
+      },
+    ],
+    answer: "D",
+  },
+  {
+    id: "3",
+    image: img_ellephant,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "hippotamous",
+      },
+      {
+        label: "B",
+        option: "Pig",
+      },
+      {
+        label: "C",
+        option: "Ellephant",
+      },
+      {
+        label: "D",
+        option: "Lion",
+      },
+    ],
+    answer: "C",
+  },
+  {
+    id: "4",
+    image: img_fish,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "crocodile",
+      },
+      {
+        label: "B",
+        option: "fish",
+      },
+      {
+        label: "C",
+        option: "alligator",
+      },
+      {
+        label: "D",
+        option: "snake",
+      },
+    ],
+    answer: "B",
+  },
+  {
+    id: "5",
+    image: img_gorilla,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Man",
+      },
+      {
+        label: "B",
+        option: "Gorilla",
+      },
+      {
+        label: "C",
+        option: "alligator",
+      },
+      {
+        label: "D",
+        option: "Monkey",
+      },
+    ],
+    answer: "B",
+  },
+  {
+    id: "5",
+    image: img_tiger,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Lion",
+      },
+      {
+        label: "B",
+        option: "Deer",
+      },
+      {
+        label: "C",
+        option: "Zebra",
+      },
+      {
+        label: "D",
+        option: "Tiger",
+      },
+    ],
+    answer: "D",
+  },
+  {
+    id: "6",
+    image: img_giraffe,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Gorilla",
+      },
+      {
+        label: "B",
+        option: "Dog",
+      },
+      {
+        label: "C",
+        option: "Giraffe",
+      },
+      {
+        label: "D",
+        option: "Monkey",
+      },
+    ],
+    answer: "C",
+  },
+  {
+    id: "7",
+    image: img_fowl,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "fowl",
+      },
+      {
+        label: "B",
+        option: "Dog",
+      },
+      {
+        label: "C",
+        option: "cat",
+      },
+      {
+        label: "D",
+        option: "Monkey",
+      },
+    ],
+    answer: "A",
+  },
+  {
+    id: "8",
+    image: img_deer,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Dog",
+      },
+      {
+        label: "B",
+        option: "Deer",
+      },
+      {
+        label: "C",
+        option: "Cat",
+      },
+      {
+        label: "D",
+        option: "Pig",
+      },
+    ],
+    answer: "B",
+  },
+  {
+    id: "9",
+    image: img_crocodile,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Snake",
+      },
+      {
+        label: "B",
+        option: "Rat",
+      },
+      {
+        label: "C",
+        option: "Crocodile",
+      },
+      {
+        label: "D",
+        option: "Fish",
+      },
+    ],
+    answer: "C",
+  },
+  {
+    id: "9",
+    image: img_bear,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Snake",
+      },
+      {
+        label: "B",
+        option: "Bear",
+      },
+      {
+        label: "C",
+        option: "Cheetah",
+      },
+      {
+        label: "D",
+        option: "Rabbit",
+      },
+    ],
+    answer: "C",
+  },
+  {
+    id: "10",
+    image: img_rabbit,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Squirrel",
+      },
+      {
+        label: "B",
+        option: "Bear",
+      },
+      {
+        label: "C",
+        option: "Cheetah",
+      },
+      {
+        label: "D",
+        option: "Rabbit",
+      },
+    ],
+    answer: "D",
+  },
+  {
+    id: "11",
+    image: img_rhinoceros,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Pig",
+      },
+      {
+        label: "B",
+        option: "Ellephant",
+      },
+      {
+        label: "C",
+        option: "Rhinoceros",
+      },
+      {
+        label: "D",
+        option: "Fish",
+      },
+    ],
+    answer: "C",
+  },
+  {
+    id: "11",
+    image: img_tortle,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Tortle",
+      },
+      {
+        label: "B",
+        option: "rhinoceros",
+      },
+      {
+        label: "C",
+        option: "Rat",
+      },
+      {
+        label: "D",
+        option: "Fish",
       },
     ],
     answer: "A",
