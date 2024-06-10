@@ -7,13 +7,15 @@ import { router, Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   FlatList,
+  Platform,
+  SafeAreaView,
   ScrollView,
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
   View,
 } from "react-native";
-import Animated, { FadeIn, ZoomInDown } from "react-native-reanimated";
+import Animated, { ZoomInDown } from "react-native-reanimated";
 
 export default () => {
   const TOPIC_ITEMS = [
@@ -30,18 +32,18 @@ export default () => {
       count: 30,
       image: img_english,
       label: "english",
-      href: "questions?language=English",
+      href: "English",
     },
     {
       image: img_french,
       label: "french",
-      href: "questions?language=French",
+      href: "French",
       count: 30,
     },
-    { image: img_animal, label: "animals", href: "questions", count: 15 },
-    { image: img_math, label: "mathematics", href: "questions", count: 20 },
-    { image: img_math, label: "programming", href: "questions", count: 25 },
-  ] satisfies TopicCardProps[];
+    { image: img_animal, label: "animals", href: "Animals", count: 15 },
+    { image: img_math, label: "mathematics", href: "Mathematics", count: 20 },
+    { image: img_math, label: "programming", href: "Programming", count: 25 },
+  ] as const satisfies TopicCardProps[];
   const [active, setActive] = useState(0);
 
   const [user, setUser] = useState("");
@@ -76,14 +78,21 @@ export default () => {
             ) : null,
         }}
       />
-      <View className="h-screen">
+      <SafeAreaView className="flex-1 h-screen">
         <FlatList
           data={TOPIC_ITEMS}
           horizontal
-          contentContainerStyle={{
-            paddingHorizontal: 20,
-          }}
-          className="max-h-14"
+          contentContainerStyle={[
+            Platform.select({
+              android: {
+                paddingTop: 12,
+              },
+            }),
+            {
+              paddingHorizontal: 20,
+            },
+          ]}
+          className="max-h-14 "
           keyExtractor={(_, i) => i.toString()}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => (
@@ -121,7 +130,11 @@ export default () => {
               <TopicCard
                 key={index.toString()}
                 {...item}
-                onPress={() => router.navigate(item.href)}
+                onPress={() =>
+                  item.href === "Animals"
+                    ? router.navigate(`questions/animals`)
+                    : router.navigate(`questions?language=${item.href}`)
+                }
               />
             </Animated.View>
           )}
@@ -135,7 +148,7 @@ export default () => {
           }}
           ItemSeparatorComponent={() => <View className="h-2" />}
         />
-      </View>
+      </SafeAreaView>
     </ScrollView>
   );
 };
@@ -146,7 +159,13 @@ interface TopicCardProps extends TouchableOpacityProps {
   count: number;
   image: ImageSource;
 }
-const TopicCard = ({ className, image,count, label, ...props }: TopicCardProps) => {
+const TopicCard = ({
+  className,
+  image,
+  count,
+  label,
+  ...props
+}: TopicCardProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.6}

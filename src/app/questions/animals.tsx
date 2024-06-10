@@ -1,22 +1,13 @@
 import { QuestionItem } from "@/components";
 import { useStore } from "@/hooks";
-import { QUESTIONS, TAcceptedLanguage, TQuestion } from "@/utils/constants";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { ANIMAL_QUESTIONS, TQuestion } from "@/utils/constants";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import { FlatList, ListRenderItem, SafeAreaView, View } from "react-native";
 import Animated, { ZoomInDown } from "react-native-reanimated";
 export default () => {
-  const { language } = useLocalSearchParams();
-
-  const validLanguage = ((language as string) ||
-    "English") as TAcceptedLanguage;
-
-  const AcceptedLanguages = ["English", "French"] as TAcceptedLanguage[];
-  const _language = AcceptedLanguages.includes(validLanguage)
-    ? validLanguage
-    : "English";
 
   const { getStore } = useStore();
 
@@ -41,7 +32,7 @@ export default () => {
           key={index.toString()}
           {...item}
           i={index}
-          language={_language}
+          language={'English'}
         />
       </Animated.View>
     );
@@ -51,17 +42,17 @@ export default () => {
       <Stack.Screen
         options={{
           headerSearchBarOptions: {
-            placeholder: `Search ${_language} questions`,
+            placeholder: `Search animales questions`,
           },
         }}
       />
       <StatusBar hidden={false} />
       <FlatList
-        data={QUESTIONS[_language]}
+        data={ANIMAL_QUESTIONS}
         renderItem={renderItem}
         className="flex-1 bg-background dark:bg-black"
         contentContainerStyle={{
-          padding: 15,
+          padding: 18,
         }}
         keyExtractor={({}, index) => index.toString()}
         contentInsetAdjustmentBehavior="automatic"

@@ -28,12 +28,12 @@ export default () => {
   }, []);
 
   const handleNext = async () => {
-    await addStore("USERNAME", username).then(() => router.replace("/home"));
+    await addStore("USERNAME", username).then(() => router.navigate("home"));
   };
   return (
-    <KeyboardAvoidingView className="flex-1 " behavior="padding">
+    <KeyboardAvoidingView className="flex-1" behavior="padding">
       <ScrollView
-        className="flex-1 bg-white"
+        className="flex-1 pt-20 bg-white"
         contentInsetAdjustmentBehavior="automatic"
       >
         <View className="relative flex-1 px-5 h-sreen">

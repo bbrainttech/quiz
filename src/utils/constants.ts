@@ -1,4 +1,6 @@
+import { img_animal } from "@/assets/images";
 import { DefaultTheme } from "@react-navigation/native";
+import { ImageSource } from "expo-image";
 
 export const COLORS = {
   primary: DefaultTheme.colors.primary,
@@ -17,7 +19,6 @@ export interface TQuestion {
   answer: TAnswers;
   tense?: string;
 }
-
 
 export type TAcceptedLanguage = "English" | "French";
 export interface TQuestions {
@@ -372,7 +373,8 @@ export const QUESTIONS = {
       answer: "D",
     },
     {
-      question: "She __TENSE__ at the company for five years before she was promoted",
+      question:
+        "She __TENSE__ at the company for five years before she was promoted",
       tense: "work",
       options: [
         {
@@ -1271,7 +1273,8 @@ export const QUESTIONS = {
       answer: "B",
     },
     {
-      question: "Ce n’est pas que je n’ __TENSE__  pas envie de venir, mais je ne me sens pas très bien..",
+      question:
+        "Ce n’est pas que je n’ __TENSE__  pas envie de venir, mais je ne me sens pas très bien..",
       tense: "avoir",
       options: [
         {
@@ -1363,6 +1366,58 @@ export const QUESTIONS = {
       answer: "B",
     },
   ],
-  
-  
 } satisfies TQuestions;
+
+type TAnimalQuestions = Omit<TQuestion, "tense"> & {
+  image: ImageSource;
+};
+export const ANIMAL_QUESTIONS = [
+  {
+    id: "0",
+    image: img_animal,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Dog",
+      },
+      {
+        label: "B",
+        option: "Pig",
+      },
+      {
+        label: "C",
+        option: "Cat",
+      },
+      {
+        label: "D",
+        option: "Fox",
+      },
+    ],
+    answer: "A",
+  },
+  {
+    id: "1",
+    image: img_animal,
+    question: "Please select the correct name of the animal in the picture.",
+    options: [
+      {
+        label: "A",
+        option: "Dog",
+      },
+      {
+        label: "B",
+        option: "Pig",
+      },
+      {
+        label: "C",
+        option: "Cat",
+      },
+      {
+        label: "D",
+        option: "Fox",
+      },
+    ],
+    answer: "A",
+  },
+] as const satisfies TAnimalQuestions[];

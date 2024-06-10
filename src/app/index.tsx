@@ -19,6 +19,7 @@ export default function Index() {
             />
           </Animated.View>
         </View>
+        
         <View className="flex-1 px-5 mt-16">
           <Animated.Text
             entering={FadeInDown.duration(400)}

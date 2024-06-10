@@ -4,7 +4,7 @@ import useBackgroundAudio from "@/hooks/use-background-audio";
 import Icon from "@expo/vector-icons/Ionicons";
 import { router, Stack } from "expo-router";
 import { useEffect } from "react";
-import { Text, useColorScheme, View } from "react-native";
+import { Platform, Text, useColorScheme, View } from "react-native";
 import { BlurEffectTypes } from "react-native-screens";
 
 export default function RootLayout() {
@@ -57,9 +57,9 @@ export default function RootLayout() {
             },
             headerBackVisible: false,
             headerLargeTitle: true,
-            headerTransparent: true,
+            headerTransparent: Platform.OS === "ios",
             headerShadowVisible: false,
-            presentation:"modal",
+            presentation: "modal",
             headerBlurEffect: theme as BlurEffectTypes,
             headerTitleStyle: {
               color: theme === "dark" ? "white" : "black",
@@ -76,7 +76,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="learn"
           options={{
-            headerTransparent: true,
+            headerTransparent: Platform.OS === "ios",
             headerTitleStyle: {
               color: "transparent",
             },
@@ -99,24 +99,9 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="questions/index"
+          name="questions"
           options={{
-            headerTitle: "Questions",
-            headerLargeTitle: true,
-            headerSearchBarOptions: {},
-            headerTransparent: true,
-            headerShadowVisible: false,
-            headerBlurEffect: theme as BlurEffectTypes,
-            headerTitleStyle: {
-              color: theme === "dark" ? "white" : "black",
-            },
-            headerLargeTitleStyle: {
-              color: theme === "dark" ? "white" : "black",
-            },
-            headerLargeStyle: {
-              backgroundColor: theme === "dark" ? "black" : "white",
-            },
-            headerRight: () => <TimeDown />,
+            headerShown: false,
           }}
         />
       </Stack>

@@ -6,6 +6,7 @@ import {
   TOption,
   TQuestion,
 } from "@/utils/constants";
+import { Image, ImageSource } from "expo-image";
 import { useEffect, useState } from "react";
 import {
   FlatList,
@@ -19,7 +20,7 @@ import {
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 
 type QuestionItemProps = TQuestion &
-  ViewProps & { i: number; language: TAcceptedLanguage };
+  ViewProps & { i: number; language: TAcceptedLanguage; image?: ImageSource };
 
 export default ({
   language,
@@ -27,6 +28,7 @@ export default ({
   answer,
   options,
   tense,
+  image,
   i,
   ...props
 }: QuestionItemProps) => {
@@ -79,6 +81,15 @@ export default ({
           {createQuestion(question, tense)}
         </Text>
       </View>
+      {image && (
+        <View className="bg-white shadow-lg dark:bg-black">
+          <Image
+            source={image}
+            contentFit="contain"
+            className="w-full max-w-xs mx-auto my-4 rounded-lg h-44"
+          />
+        </View>
+      )}
       <FlatList
         data={options}
         numColumns={2}
@@ -131,7 +142,9 @@ const AnswerItem = ({
       )}
       {...props}
     >
-      <Text className={cn("text-base font-bold dark:text-white", state)}>{label}&#41;</Text>
+      <Text className={cn("text-base font-bold dark:text-white", state)}>
+        {label}&#41;
+      </Text>
       <Text className={cn("text-base dark:text-background", state)}>
         {option}
       </Text>
